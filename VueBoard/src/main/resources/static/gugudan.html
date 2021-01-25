@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="root">{{first}} 곱하기 {{second}} 는 ?
+		<form v-on:submit="onSubmitForm">
+			<input type="number" ref="answer" v-model="value">
+			<button type="submit">입력</button>
+			<div id="result">{{result}}</div>
+		</form>
+	</div>
+</body>
+<script>
+	const app = new Vue({
+		el: '#root',
+		data: {
+			first: Math.ceil(Math.random() * 9),
+			second: Math.ceil(Math.random() * 9),
+			result: '',
+			value: ''
+		},
+		methods: {
+			onSubmitForm(e){
+				console.log(this);
+				e.preventDefault();
+				if(this.first * this.second === parseInt(this.value)){
+					this.result = '정답';
+					this.first = Math.ceil(Math.random() * 9);
+					this.second = Math.ceil(Math.random() * 9);
+					this.value = '';
+				}else{
+					this.result = '땡';
+					this.value = '';
+				}
+				
+				this.$refs.answer.focus();
+			}
+		},
+	});
+</script>
+</html>
